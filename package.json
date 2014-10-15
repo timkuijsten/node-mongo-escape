@@ -1,0 +1,34 @@
+{
+  "name": "mongo-key-escaper",
+  "version": "0.0.3",
+  "author": {
+    "name": "Tim Kuijsten",
+    "email": "tim@netsend.nl",
+    "url": "https://github.com/timkuijsten"
+  },
+  "license": "MIT",
+  "description": "Escape $ and . in keys, recursively",
+  "keywords": [
+    "mongo",
+    "key",
+    "escape",
+    "escaper"
+  ],
+  "main": "index.js",
+  "bugs": "https://github.com/timkuijsten/node-mongo-key-escaper/issues",
+  "dependencies": {
+    "mongo-key-escape": "~0.0.1",
+    "object-key-transform": "~0.0.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.21.5",
+    "should": "~4.0.4"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/timkuijsten/node-mongo-key-escaper.git"
+  }
+}
