@@ -21,8 +21,15 @@
 
 'use strict';
 
-var keyEsc = require('mongo-key-escape');
 var transform = require('object-key-transform');
+
+function escaper(input) {
+  return input.replace(/\$/g, '\uFF04').replace(/\./g, '\uFF0E');
+}
+
+function unescaper(input) {
+  return input.replace(/\uFF04/g, '$').replace(/\uFF0E/g, '.');
+}
 
 /**
  * Escape any key in the given object that has a $ or . in it.
@@ -35,7 +42,7 @@ function escape(obj, recurse) {
   if (typeof recurse !== 'boolean') {
     recurse = true;
   }
-  transform(obj, keyEsc.escape, recurse);
+  transform(obj, escaper, recurse);
   return obj;
 }
 
@@ -50,7 +57,7 @@ function unescape(obj, recurse) {
   if (typeof recurse !== 'boolean') {
     recurse = true;
   }
-  transform(obj, keyEsc.unescape, recurse);
+  transform(obj, unescaper, recurse);
   return obj;
 }
 

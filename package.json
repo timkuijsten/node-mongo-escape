@@ -17,7 +17,6 @@
   "main": "index.js",
   "bugs": "https://github.com/timkuijsten/node-mongo-key-escaper/issues",
   "dependencies": {
-    "mongo-key-escape": "~0.0.1",
     "object-key-transform": "~0.0.1"
   },
   "devDependencies": {
