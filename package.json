@@ -12,12 +12,13 @@
     "mongo",
     "key",
     "escape",
-    "escaper"
+    "sanitize",
+    "injection"
   ],
   "main": "index.js",
   "bugs": "https://github.com/timkuijsten/node-mongo-key-escaper/issues",
   "dependencies": {
-    "object-key-transform": "~0.0.1"
+    "object-key-transform": "~0.0.2"
   },
   "scripts": {
     "test": "node test"
