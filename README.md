@@ -1,7 +1,7 @@
 # mongo-key-escaper
 
 Escape all occurences of "$" and "." in object keys. Replace them with "＄" (U+FF04)
-and "．" (U+FF0E) as recommended by http://docs.mongodb.org/manual/faq/developers/#dollar-sign-operator-escaping.
+and "．" (U+FF0E).
 
 ## Example
 
@@ -16,11 +16,12 @@ Escape all keys in the given object:
 
     escaper.escape(obj);
 
-    // console.log(obj)
-    // {
-    //   foo: 'bar',
-    //   ba．z: { ＄in: 'quz' }
-    // };
+    /* obj:
+     * {
+     *   foo: 'bar',
+     *   ba．z: { ＄in: 'quz' }
+     * };
+     */
 
 ## Installation
 
@@ -31,20 +32,20 @@ Escape all keys in the given object:
 ###  escape(obj, [recurse])
 * obj {Object} object to transform
 * recurse {Boolean, default: true} whether or not to recurse
-* @return {undefined} replaces keys in place
+* @return obj, replaces keys in place
 
 Escape any key in the given object that has a "$" or "." in it.
 
 ### unescape(obj, [recurse])
 * obj {Object} object to transform
 * recurse {Boolean, default: true} whether or not to recurse
-* @return {undefined} replaces keys in place
+* @return obj, replaces keys in place
 
 Unescape any key in the given object that has a "＄" or "．" in it.
 
 ## Tests
 
-    $ mocha test
+    $ npm test
 
 ## License
 
