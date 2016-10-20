@@ -1,3 +1,10 @@
+2016.10.20, Version 1.0.0
+
+* use node assert instead of mocha for testing
+* change license from MIT to ISC
+* remove mongo-key-escape dependency
+
+
 2014.10.15, Version 0.0.3
 
 * initial release
