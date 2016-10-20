@@ -6,7 +6,7 @@
     "email": "tim@netsend.nl",
     "url": "https://github.com/timkuijsten"
   },
-  "license": "MIT",
+  "license": "ISC",
   "description": "Escape $ and . in keys, recursively",
   "keywords": [
     "mongo",
