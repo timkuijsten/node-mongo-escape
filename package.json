@@ -19,12 +19,8 @@
   "dependencies": {
     "object-key-transform": "~0.0.1"
   },
-  "devDependencies": {
-    "mocha": "~1.21.5",
-    "should": "~4.0.4"
-  },
   "scripts": {
-    "test": "mocha test"
+    "test": "node test"
   },
   "repository": {
     "type": "git",
