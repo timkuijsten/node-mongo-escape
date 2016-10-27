@@ -22,6 +22,17 @@ var escaper = require('./index');
 
 var obj;
 
+/* escape */
+
+/* don't fall over strings */
+obj = '';
+escaper.escape(obj);
+assert.deepEqual(obj, '', 'escape empty string');
+
+obj = '$set';
+escaper.escape(obj);
+assert.deepEqual(obj, '$set', 'escape string');
+
 obj = {};
 escaper.escape(obj);
 assert.deepEqual(obj, {}, 'escape empty object');
@@ -38,6 +49,17 @@ assert.deepEqual(obj, { '\uFF04': '$', 'foo\uFF0Ebar': { $: '$' } }, 'should be 
 obj = { $: '$', foo: { $: '$', bar: { 'some.foo': 'other' } }, a: 'b' };
 escaper.escape(obj);
 assert.deepEqual(obj, { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } } , a: 'b'}, 'should recurse by default');
+
+/* unescape */
+
+/* don't fall over strings */
+obj = '';
+escaper.unescape(obj);
+assert.deepEqual(obj, '', 'unescape empty string');
+
+obj = '$set';
+escaper.unescape(obj);
+assert.deepEqual(obj, '$set', 'unescape string');
 
 obj = {};
 escaper.unescape(obj);
