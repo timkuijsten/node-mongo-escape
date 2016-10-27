@@ -48,7 +48,7 @@ assert.deepEqual(obj, { '\uFF04': '$', 'foo\uFF0Ebar': { $: '$' } }, 'should be 
 
 obj = { $: '$', foo: { $: '$', bar: { 'some.foo': 'other' } }, a: 'b' };
 escaper.escape(obj);
-assert.deepEqual(obj, { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } } , a: 'b'}, 'should recurse by default');
+assert.deepEqual(obj, { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } }, a: 'b' }, 'should recurse by default');
 
 /* unescape */
 
@@ -65,7 +65,7 @@ obj = {};
 escaper.unescape(obj);
 assert.deepEqual(obj, {}, 'unescape empty object');
 
-obj = { "a": "b"};
+obj = { 'a': 'b' };
 escaper.escape(obj, true);
 assert.deepEqual(obj, { 'a': 'b' }, 'should return original object');
 
@@ -78,7 +78,7 @@ escaper.unescape(obj, false);
 escaper.unescape(obj, false);
 assert.deepEqual(obj, { $: '$', 'foo.bar': { $: '$' } }, 'should be idempotent');
 
-obj = { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } } , a: 'b'};
+obj = { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } }, a: 'b' };
 escaper.unescape(obj);
 assert.deepEqual(obj, { $: '$', foo: { $: '$', bar: { 'some.foo': 'other' } }, a: 'b' }, 'should recurse by default');
 
