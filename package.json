@@ -1,6 +1,6 @@
 {
   "name": "mongo-key-escaper",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": {
     "name": "Tim Kuijsten",
     "email": "tim@netsend.nl",
@@ -18,7 +18,7 @@
   "main": "index.js",
   "bugs": "https://github.com/timkuijsten/node-mongo-key-escaper/issues",
   "dependencies": {
-    "object-key-transform": "~0.0.2"
+    "object-key-transform": "^0.0.2"
   },
   "scripts": {
     "test": "node test"

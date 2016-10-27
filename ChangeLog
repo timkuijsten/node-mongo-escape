@@ -1,3 +1,10 @@
+2016.10.27, Version 1.1.0
+
+* accept strings on input
+* add eslint policy
+* eslint code
+
+
 2016.10.20, Version 1.0.1
 
 * update keywords and dep
