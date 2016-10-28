@@ -27,16 +27,16 @@ var obj;
 /* don't fall over numbers */
 obj = 0;
 escaper.escape(obj);
-assert.deepEqual(obj, 0, 'don\'t fall over numbers');
+assert.strictEqual(obj, 0, 'don\'t fall over numbers');
 
 /* don't fall over strings */
 obj = '';
 escaper.escape(obj);
-assert.deepEqual(obj, '', 'don\'t fall over empty string');
+assert.strictEqual(obj, '', 'don\'t fall over empty string');
 
 obj = '$set';
 escaper.escape(obj);
-assert.deepEqual(obj, '$set', 'don\'t fall over string');
+assert.strictEqual(obj, '$set', 'don\'t fall over string');
 
 obj = {};
 escaper.escape(obj);
@@ -64,11 +64,11 @@ assert.deepEqual(obj, [ { '\uFF04': '$', 'foo\uFF0Ebar': { '\uFF04': '$' } }, { 
 /* don't fall over strings */
 obj = '';
 escaper.unescape(obj);
-assert.deepEqual(obj, '', 'don\'t fall over empty string');
+assert.strictEqual(obj, '', 'don\'t fall over empty string');
 
 obj = '$set';
 escaper.unescape(obj);
-assert.deepEqual(obj, '$set', 'don\'t fall over string');
+assert.strictEqual(obj, '$set', 'don\'t fall over string');
 
 obj = {};
 escaper.unescape(obj);
