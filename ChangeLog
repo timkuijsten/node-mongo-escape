@@ -1,3 +1,10 @@
+2016.10.28, Version 1.2.0
+
+* don't fall over null and undefined
+* tests: use strict check for non-object checking
+* don't fall over numbers
+
+
 2016.10.28, Version 1.1.1
 
 * test array values and recursion
