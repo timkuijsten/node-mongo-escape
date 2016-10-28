@@ -34,7 +34,7 @@ function unescaper(input) {
  * @return {undefined}  replaces keys in place
  */
 function escape(obj, recurse) {
-  if (typeof obj === 'string')
+  if (typeof obj === 'string' || typeof obj == 'number')
     return obj;
 
   if (typeof recurse !== 'boolean')
@@ -52,7 +52,7 @@ function escape(obj, recurse) {
  * @return {undefined}  replaces keys in place
  */
 function unescape(obj, recurse) {
-  if (typeof obj === 'string')
+  if (typeof obj === 'string' || typeof obj == 'number')
     return obj;
 
   if (typeof recurse !== 'boolean')

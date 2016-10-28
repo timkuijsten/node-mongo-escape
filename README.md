@@ -30,14 +30,14 @@ Escape all keys in the given object:
 ## API
 
 ###  escape(obj, [recurse])
-* obj {Object|String} object to transform
+* obj {Object|String|Number} object to transform
 * recurse {Boolean, default: true} whether or not to recurse
 * @return obj, replaces keys in place
 
 Escape any key in the given object that has a "$" or "." in it.
 
 ### unescape(obj, [recurse])
-* obj {Object|String} object to transform
+* obj {Object|String|Number} object to transform
 * recurse {Boolean, default: true} whether or not to recurse
 * @return obj, replaces keys in place
 
