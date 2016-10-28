@@ -50,6 +50,10 @@ obj = { $: '$', foo: { $: '$', bar: { 'some.foo': 'other' } }, a: 'b' };
 escaper.escape(obj);
 assert.deepEqual(obj, { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } }, a: 'b' }, 'should recurse by default');
 
+obj = [ { $: '$', 'foo.bar': { $: '$' } }, { $: [ '$', { 'foo.qux': { $: '$' } } ], 'foo.baz': { $: '$' } } ];
+escaper.escape(obj);
+assert.deepEqual(obj, [ { '\uFF04': '$', 'foo\uFF0Ebar': { '\uFF04': '$' } }, { '\uFF04': [ '$', { 'foo\uFF0Equx': { '\uFF04': '$' } } ], 'foo\uFF0Ebaz': { '\uFF04': '$' } } ], 'should recurse on array values');
+
 /* unescape */
 
 /* don't fall over strings */
@@ -81,5 +85,9 @@ assert.deepEqual(obj, { $: '$', 'foo.bar': { $: '$' } }, 'should be idempotent')
 obj = { '\uFF04': '$', foo: { '\uFF04': '$', bar: { 'some\uFF0Efoo': 'other' } }, a: 'b' };
 escaper.unescape(obj);
 assert.deepEqual(obj, { $: '$', foo: { $: '$', bar: { 'some.foo': 'other' } }, a: 'b' }, 'should recurse by default');
+
+obj = [ { '\uFF04': '$', 'foo\uFF0Ebar': { '\uFF04': '$' } }, { '\uFF04': [ '$', { 'foo\uFF0Equx': { '\uFF04': '$' } } ], 'foo\uFF0Ebaz': { '\uFF04': '$' } } ];
+escaper.unescape(obj);
+assert.deepEqual(obj, [ { $: '$', 'foo.bar': { $: '$' } }, { $: [ '$', { 'foo.qux': { $: '$' } } ], 'foo.baz': { $: '$' } } ], 'should recurse on array values');
 
 console.log('ok');
