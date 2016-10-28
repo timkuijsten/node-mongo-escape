@@ -24,6 +24,15 @@ var obj;
 
 /* escape */
 
+/* don't fall over undefined */
+escaper.escape(obj);
+assert.strictEqual(obj, undefined, 'don\'t fall over undefined');
+
+/* don't fall over null */
+obj = null;
+escaper.escape(obj);
+assert.strictEqual(obj, null, 'don\'t fall over null');
+
 /* don't fall over numbers */
 obj = 0;
 escaper.escape(obj);
@@ -60,6 +69,16 @@ escaper.escape(obj);
 assert.deepEqual(obj, [ { '\uFF04': '$', 'foo\uFF0Ebar': { '\uFF04': '$' } }, { '\uFF04': [ '$', { 'foo\uFF0Equx': { '\uFF04': '$' } } ], 'foo\uFF0Ebaz': { '\uFF04': '$' } } ], 'should recurse on array values');
 
 /* unescape */
+
+/* don't fall over undefined */
+obj = undefined
+escaper.unescape(obj);
+assert.strictEqual(obj, undefined, 'don\'t fall over undefined');
+
+/* don't fall over null */
+obj = null;
+escaper.unescape(obj);
+assert.strictEqual(obj, null, 'don\'t fall over null');
 
 /* don't fall over strings */
 obj = '';
