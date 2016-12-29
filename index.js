@@ -27,15 +27,23 @@ function unescaper(input) {
 }
 
 /**
- * Escape any key in the given object that has a $ or . in it.
+ * If obj is an object, then escape any key that has a $ or . in it. Otherwise
+ * just return obj.
  *
- * @param {Object|String} obj  object to transform
+ * @param {mixed} obj  object to transform
  * @param {Boolean, default: true} recurse  whether or not to recurse
  * @return {undefined}  replaces keys in place
  */
 function escape(obj, recurse) {
-  if (obj == null || typeof obj === 'string' || typeof obj == 'number')
+  if (obj == null)
     return obj;
+
+  switch (typeof obj) {
+  case 'string':
+  case 'number':
+  case 'boolean':
+    return obj;
+  }
 
   if (typeof recurse !== 'boolean')
     recurse = true;
@@ -45,15 +53,23 @@ function escape(obj, recurse) {
 }
 
 /**
- * Unescape any key in the given object that has a $ or . in it.
+ * If obj is an object, then unescape any key that has a ＄ or ． in it.
+ * Otherwise just return obj.
  *
- * @param {Object|String} obj  object to transform
+ * @param {mixed} obj  object to transform
  * @param {Boolean, default: true} recurse  whether or not to recurse
  * @return {undefined}  replaces keys in place
  */
 function unescape(obj, recurse) {
-  if (obj == null || typeof obj === 'string' || typeof obj == 'number')
+  if (obj == null)
     return obj;
+
+  switch (typeof obj) {
+  case 'string':
+  case 'number':
+  case 'boolean':
+    return obj;
+  }
 
   if (typeof recurse !== 'boolean')
     recurse = true;

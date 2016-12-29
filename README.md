@@ -1,7 +1,8 @@
 # mongo-key-escaper
 
 Escape all occurences of "$" and "." in object keys. Replace them with "＄" (U+FF04)
-and "．" (U+FF0E).
+and "．" (U+FF0E). Silently ignores other primitive types that pose no threat to
+mongo injection.
 
 ## Example
 
@@ -30,18 +31,20 @@ Escape all keys in the given object:
 ## API
 
 ###  escape(obj, [recurse])
-* obj {Object|String|Number|null|undefined} object to transform
+* obj {mixed} object to transform
 * recurse {Boolean, default: true} whether or not to recurse
 * @return obj, replaces keys in place
 
-Escape any key in the given object that has a "$" or "." in it.
+If obj is an object, then escape any key that has a `$` or `.` in it. Otherwise
+just return obj.
 
 ### unescape(obj, [recurse])
-* obj {Object|String|Number|null|undefined} object to transform
+* obj {mixed} object to transform
 * recurse {Boolean, default: true} whether or not to recurse
 * @return obj, replaces keys in place
 
-Unescape any key in the given object that has a "＄" or "．" in it.
+If obj is an object, then unescape any key that has a `＄` or `．` in it.
+Otherwise just return obj.
 
 ## Tests
 

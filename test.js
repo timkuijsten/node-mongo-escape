@@ -33,6 +33,11 @@ obj = null;
 escaper.escape(obj);
 assert.strictEqual(obj, null, 'don\'t fall over null');
 
+/* don't fall over boolean */
+obj = false;
+escaper.escape(obj);
+assert.strictEqual(obj, false, 'don\'t fall over boolean');
+
 /* don't fall over numbers */
 obj = 0;
 escaper.escape(obj);
@@ -79,6 +84,11 @@ assert.strictEqual(obj, undefined, 'don\'t fall over undefined');
 obj = null;
 escaper.unescape(obj);
 assert.strictEqual(obj, null, 'don\'t fall over null');
+
+/* don't fall over boolean */
+obj = false;
+escaper.unescape(obj);
+assert.strictEqual(obj, false, 'don\'t fall over boolean');
 
 /* don't fall over strings */
 obj = '';
