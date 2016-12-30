@@ -1,13 +1,13 @@
 {
   "name": "mongo-key-escaper",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "author": {
     "name": "Tim Kuijsten",
     "email": "tim@netsend.nl",
     "url": "https://github.com/timkuijsten"
   },
   "license": "ISC",
-  "description": "Escape $ and . in keys, recursively",
+  "description": "Properly escape variables to prevent NoSQL injection in MongoDB",
   "keywords": [
     "mongo",
     "key",
