@@ -14,27 +14,30 @@ JavaScript code.
 
 Escape a string so that it can be used as a key in a query:
 
-    var assert = require('assert')
-    var me = require('mongo-escape').escape
-    var userInput
+```js
+var assert = require('assert')
+var me = require('mongo-escape').escape
 
-    userInput = me('$in')
+var userInput = me('$in')
 
-    assert.equal(userInput, '＄in')
+assert.equal(userInput, '＄in')
+```
 
 Now escape all keys in an object:
 
-    userInput = me({
-      'foo': 'bar',
-      'ba.z': {
-        '$in': 'quz'
-      }
-    })
+```js
+userInput = me({
+  'foo': 'bar',
+  'ba.z': {
+    '$in': 'quz'
+  }
+})
 
-    assert.deepEqual(userInput, {
-      'foo': 'bar',
-      'ba．z': { '＄in': 'quz' }
-    })
+assert.deepEqual(userInput, {
+  'foo': 'bar',
+  'ba．z': { '＄in': 'quz' }
+})
+```
 
 Note: beware that keys in objects are replaced in-place, the object is not
 cloned.
