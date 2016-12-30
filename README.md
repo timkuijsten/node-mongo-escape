@@ -44,7 +44,9 @@ cloned.
 
 ## Installation
 
-    $ npm install mongo-escape
+```sh
+$ npm install mongo-escape
+```
 
 ## API
 
@@ -78,7 +80,9 @@ Note: if input is an object, keys are replaced in place.
 
 ## Tests
 
-    $ npm test
+```sh
+$ npm test
+```
 
 ## License
 
