@@ -1,8 +1,15 @@
 # mongo-key-escaper
 
-Escape all occurences of "$" and "." in object keys. Replace them with "＄" (U+FF04)
-and "．" (U+FF0E). Silently ignores other primitive types that pose no threat to
-mongo injection.
+Properly escape variables to prevent NoSQL injection in MongoDB.
+
+Escape all occurences of "$" and "." where needed and replace them with "＄"
+(U+FF04) and "．" (U+FF0E).
+
+**Note**: this ought to be foolproof **only** if [server side JavaScript is disabled],
+so make sure `security.javascriptEnabled` is set to `false` in your mongodb
+configuration file. This has the effect that the [mapReduce] command and [$where]
+operator can not be used since these functions allow the execution of arbitrary
+JavaScript code.
 
 ## Example
 
@@ -31,20 +38,32 @@ Escape all keys in the given object:
 ## API
 
 ###  escape(obj, [recurse])
-* obj {mixed} object to transform
+* input {mixed} input to escape
 * recurse {Boolean, default: true} whether or not to recurse
-* @return obj, replaces keys in place
+* @return {mixed} properly escaped input
 
-If obj is an object, then escape any key that has a `$` or `.` in it. Otherwise
-just return obj.
+Ensure any input is properly escaped. Where needed `$` and `.` are replaced
+with `＄` and `．`, respectively.
+
+If input is an object, all keys are escaped. If input is not an object but a
+string it is escaped as well. Otherwise return the original value. If input
+is a function or a symbol an error is raised.
+
+Note: if input is an object, keys are replaced in place.
 
 ### unescape(obj, [recurse])
-* obj {mixed} object to transform
+* input {mixed} input to unescape
 * recurse {Boolean, default: true} whether or not to recurse
-* @return obj, replaces keys in place
+* @return {mixed} properly unescaped input
 
-If obj is an object, then unescape any key that has a `＄` or `．` in it.
-Otherwise just return obj.
+Ensure any input is properly unescaped. Where needed `＄` and `．` are
+replaced with `$` and `.`, respectively.
+
+If input is an object, all keys are unescaped. If input is not an object but
+a string it is unescaped as well. Otherwise return the original value. If
+input is a function or a symbol an error is raised.
+
+Note: if input is an object, keys are replaced in place.
 
 ## Tests
 
@@ -67,3 +86,7 @@ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+[server side JavaScript is disabled]: https://docs.mongodb.com/manual/core/server-side-javascript/#disable-server-side-js
+[mapReduce]: https://docs.mongodb.com/manual/reference/command/mapReduce/#dbcmd.mapReduce
+[$where]: https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where

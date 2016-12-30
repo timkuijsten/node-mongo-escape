@@ -26,56 +26,78 @@ function unescaper(input) {
   return input.replace(/\uFF04/g, '$').replace(/\uFF0E/g, '.');
 }
 
-/**
- * If obj is an object, then escape any key that has a $ or . in it. Otherwise
- * just return obj.
- *
- * @param {mixed} obj  object to transform
- * @param {Boolean, default: true} recurse  whether or not to recurse
- * @return {undefined}  replaces keys in place
- */
-function escape(obj, recurse) {
-  if (obj == null)
-    return obj;
+/*
+Note: this ought to be foolproof only if [server side JavaScript is disabled],
+so make sure `security.javascriptEnabled` is set to `false` in your mongodb
+configuration file. This has the effect that the [mapReduce] command and [$where]
+operator can not be used since these functions allow the execution of arbitrary
+JavaScript code.
+*/
 
-  switch (typeof obj) {
+/**
+ * Ensure any input is properly escaped. Where needed `$` and `.` are replaced
+ * with `＄` and `．`, respectively.
+ *
+ * If input is an object, all keys are escaped. If input is not an object but a
+ * string it is escaped as well. Otherwise return the original value. If input
+ * is a function or a symbol an error is raised.
+ *
+ * Note: if input is an object, keys are replaced in place.
+ *
+ * @param {mixed} input  input to escape
+ * @param {Boolean, default: true} recurse  whether or not to recurse
+ * @return {mixed}  properly escaped input
+ */
+function escape(input, recurse) {
+  if (input == null)
+    return input;
+
+  switch (typeof input) {
   case 'string':
+    return escaper(input);
   case 'number':
   case 'boolean':
-    return obj;
+    return input;
   }
 
   if (typeof recurse !== 'boolean')
     recurse = true;
 
-  transform(obj, escaper, recurse);
-  return obj;
+  transform(input, escaper, recurse);
+  return input;
 }
 
 /**
- * If obj is an object, then unescape any key that has a ＄ or ． in it.
- * Otherwise just return obj.
+ * Ensure any input is properly unescaped. Where needed `＄` and `．` are
+ * replaced with `$` and `.`, respectively.
  *
- * @param {mixed} obj  object to transform
+ * If input is an object, all keys are unescaped. If input is not an object but
+ * a string it is unescaped as well. Otherwise return the original value. If
+ * input is a function or a symbol an error is raised.
+ *
+ * Note: if input is an object, keys are replaced in place.
+ *
+ * @param {mixed} input  input to unescape
  * @param {Boolean, default: true} recurse  whether or not to recurse
- * @return {undefined}  replaces keys in place
+ * @return {mixed}  properly unescaped input
  */
-function unescape(obj, recurse) {
-  if (obj == null)
-    return obj;
+function unescape(input, recurse) {
+  if (input == null)
+    return input;
 
-  switch (typeof obj) {
+  switch (typeof input) {
   case 'string':
+    return unescaper(input);
   case 'number':
   case 'boolean':
-    return obj;
+    return input;
   }
 
   if (typeof recurse !== 'boolean')
     recurse = true;
 
-  transform(obj, unescaper, recurse);
-  return obj;
+  transform(input, unescaper, recurse);
+  return input;
 }
 
 module.exports.escape = escape;

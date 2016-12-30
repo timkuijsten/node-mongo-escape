@@ -49,8 +49,7 @@ escaper.escape(obj);
 assert.strictEqual(obj, '', 'don\'t fall over empty string');
 
 obj = '$set';
-escaper.escape(obj);
-assert.strictEqual(obj, '$set', 'don\'t fall over string');
+assert.strictEqual(escaper.escape(obj), '\uFF04set', 'escape string');
 
 obj = {};
 escaper.escape(obj);
@@ -95,16 +94,15 @@ obj = '';
 escaper.unescape(obj);
 assert.strictEqual(obj, '', 'don\'t fall over empty string');
 
-obj = '$set';
-escaper.unescape(obj);
-assert.strictEqual(obj, '$set', 'don\'t fall over string');
+obj = '\uFF04set';
+assert.strictEqual(escaper.unescape(obj), '$set', 'unescape string');
 
 obj = {};
 escaper.unescape(obj);
 assert.deepEqual(obj, {}, 'unescape empty object');
 
 obj = { 'a': 'b' };
-escaper.escape(obj, true);
+escaper.unescape(obj, true);
 assert.deepEqual(obj, { 'a': 'b' }, 'should return original object');
 
 obj = { '\uFF04': '$', 'foo\uFF0Ebar': { $: '$' } };
