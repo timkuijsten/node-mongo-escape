@@ -1,3 +1,9 @@
+2016.12.30, Version 2.0.1
+
+* rename the project to mongo-escape
+* some readme cleanups
+
+
 2016.12.30, Version 2.0.0
 
 * security fix: escape strings as well

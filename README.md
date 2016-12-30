@@ -1,9 +1,8 @@
-# mongo-key-escaper
+# mongo-escape
 
-Properly escape variables to prevent NoSQL injection in MongoDB.
+Escape variables to prevent NoSQL injection in MongoDB
 
-Escape all occurences of "$" and "." where needed and replace them with "＄"
-(U+FF04) and "．" (U+FF0E).
+Replace all occurences of "$" and "." with "＄" (U+FF04) and "．" (U+FF0E).
 
 **Note**: this ought to be foolproof **only** if [server side JavaScript is disabled],
 so make sure `security.javascriptEnabled` is set to `false` in your mongodb
@@ -11,29 +10,38 @@ configuration file. This has the effect that the [mapReduce] command and [$where
 operator can not be used since these functions allow the execution of arbitrary
 JavaScript code.
 
-## Example
+## Examples
 
-Escape all keys in the given object:
+Escape a string so that it can be used as a key in a query:
 
-    var escaper = require('mongo-key-escaper');
+    var assert = require('assert')
+    var me = require('mongo-escape').escape
+    var userInput
 
-    var obj = {
-      foo: 'bar',
-      ba.z: { $in: 'quz' }
-    };
+    userInput = me('$in')
 
-    escaper.escape(obj);
+    assert.equal(userInput, '＄in')
 
-    /* obj:
-     * {
-     *   foo: 'bar',
-     *   ba．z: { ＄in: 'quz' }
-     * };
-     */
+Now escape all keys in an object:
+
+    userInput = me({
+      'foo': 'bar',
+      'ba.z': {
+        '$in': 'quz'
+      }
+    })
+
+    assert.deepEqual(userInput, {
+      'foo': 'bar',
+      'ba．z': { '＄in': 'quz' }
+    })
+
+Note: beware that keys in objects are replaced in-place, the object is not
+cloned.
 
 ## Installation
 
-    $ npm install mongo-key-escaper
+    $ npm install mongo-escape
 
 ## API
 

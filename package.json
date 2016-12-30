@@ -1,13 +1,13 @@
 {
-  "name": "mongo-key-escaper",
-  "version": "2.0.0",
+  "name": "mongo-escape",
+  "version": "2.0.1",
   "author": {
     "name": "Tim Kuijsten",
     "email": "tim@netsend.nl",
     "url": "https://github.com/timkuijsten"
   },
   "license": "ISC",
-  "description": "Properly escape variables to prevent NoSQL injection in MongoDB",
+  "description": "Escape variables to prevent NoSQL injection in MongoDB",
   "keywords": [
     "mongo",
     "key",
@@ -16,15 +16,12 @@
     "injection"
   ],
   "main": "index.js",
-  "bugs": "https://github.com/timkuijsten/node-mongo-key-escaper/issues",
-  "dependencies": {
-    "object-key-transform": "^0.0.2"
-  },
+  "bugs": "https://github.com/timkuijsten/node-mongo-escape/issues",
   "scripts": {
     "test": "node test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/timkuijsten/node-mongo-key-escaper.git"
+    "url": "git://github.com/timkuijsten/node-mongo-escape.git"
   }
 }

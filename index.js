@@ -16,8 +16,6 @@
 
 'use strict';
 
-var transform = require('object-key-transform');
-
 function escaper(input) {
   return input.replace(/\$/g, '\uFF04').replace(/\./g, '\uFF0E');
 }
@@ -98,6 +96,41 @@ function unescape(input, recurse) {
 
   transform(input, unescaper, recurse);
   return input;
+}
+
+/**
+ * source: object-key-transform npm
+ *
+ * Iterate over all object keys (and optionally recurse) and run a transformation
+ * on each key. Modify the object in-place.
+ *
+ * @param {Object} obj  object to transform
+ * @param {Function} iterator  first parameter will be the key to transform, second
+ *                             parameter is the value of that key (though this is
+ *                             informational only). This function should return the
+ *                             new key to be used.
+ * @param {Boolean, default: false} recurse  whether or not to recurse
+ * @return {undefined}  replaces keys in-place
+ */
+function transform(obj, iterator, recurse) {
+  if (typeof obj !== 'object') { throw new TypeError('obj must be an object'); }
+  if (typeof iterator !== 'function') { throw new TypeError('iterator must be a function'); }
+
+  recurse = recurse || false;
+  if (typeof recurse !== 'boolean') { throw new TypeError('recurse must be a boolean'); }
+
+  Object.keys(obj).forEach(function(key) {
+    // recurse if requested and possible
+    if (recurse && typeof obj[key] === 'object' && obj[key] !== null && Object.keys(obj[key]).length) {
+      transform(obj[key], iterator, recurse);
+    }
+
+    var transformed = iterator(key, obj[key]);
+    if (transformed !== key) {
+      obj[transformed] = obj[key];
+      delete obj[key];
+    }
+  });
 }
 
 module.exports.escape = escape;
