@@ -2,13 +2,13 @@
 
 Escape variables to prevent NoSQL injection in MongoDB
 
-Replace all occurences of "$" and "." with "＄" (U+FF04) and "．" (U+FF0E).
+Replace all occurences of "$" and "." with "＄" and "．", respectively.
 
-**Note**: this ought to be foolproof **only** if [server side JavaScript is disabled],
-so make sure `security.javascriptEnabled` is set to `false` in your mongodb
-configuration file. This has the effect that the [mapReduce] command and [$where]
-operator can not be used since these functions allow the execution of arbitrary
-JavaScript code.
+**Note**: this module only protects against keyword injection, not full
+JavaScript injection. So don't rely on this module for escaping the [mapReduce]
+command or [$where] operator as these commands parse and execute their values as
+JavaScript. From a security point of view it is recommended to
+[disable server side JavaScript] altogether.
 
 ## Examples
 
@@ -102,6 +102,6 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-[server side JavaScript is disabled]: https://docs.mongodb.com/manual/core/server-side-javascript/#disable-server-side-js
+[disable server side JavaScript]: https://docs.mongodb.com/manual/core/server-side-javascript/#disable-server-side-js
 [mapReduce]: https://docs.mongodb.com/manual/reference/command/mapReduce/#dbcmd.mapReduce
 [$where]: https://docs.mongodb.com/manual/reference/operator/query/where/#op._S_where
