@@ -103,7 +103,7 @@ function unescape(input, recurse) {
  * @return {undefined}  replaces keys in-place
  */
 function transform(obj, iterator, recurse) {
-  if (typeof obj !== 'object') { throw new TypeError('obj must be an object'); }
+  if (ojb == null || typeof obj !== 'object') { throw new TypeError('obj must be an object'); }
   if (typeof iterator !== 'function') { throw new TypeError('iterator must be a function'); }
 
   recurse = recurse || false;
@@ -111,9 +111,8 @@ function transform(obj, iterator, recurse) {
 
   Object.keys(obj).forEach(function(key) {
     /* recurse if requested and possible */
-    if (recurse && typeof obj[key] === 'object' && obj[key] !== null && Object.keys(obj[key]).length) {
+    if (recurse && typeof obj[key] === 'object' && obj[key] != null && Object.keys(obj[key]).length)
       transform(obj[key], iterator, recurse);
-    }
 
     var transformed = iterator(key, obj[key]);
     if (transformed !== key) {
