@@ -24,14 +24,6 @@ function unescaper(input) {
   return input.replace(/\uFF04/g, '$').replace(/\uFF0E/g, '.');
 }
 
-/*
-Note: this ought to be foolproof only if [server side JavaScript is disabled],
-so make sure `security.javascriptEnabled` is set to `false` in your mongodb
-configuration file. This has the effect that the [mapReduce] command and [$where]
-operator can not be used since these functions allow the execution of arbitrary
-JavaScript code.
-*/
-
 /**
  * Ensure any input is properly escaped. Where needed `$` and `.` are replaced
  * with `＄` and `．`, respectively.
@@ -99,8 +91,6 @@ function unescape(input, recurse) {
 }
 
 /**
- * source: object-key-transform npm
- *
  * Iterate over all object keys (and optionally recurse) and run a transformation
  * on each key. Modify the object in-place.
  *
@@ -120,7 +110,7 @@ function transform(obj, iterator, recurse) {
   if (typeof recurse !== 'boolean') { throw new TypeError('recurse must be a boolean'); }
 
   Object.keys(obj).forEach(function(key) {
-    // recurse if requested and possible
+    /* recurse if requested and possible */
     if (recurse && typeof obj[key] === 'object' && obj[key] !== null && Object.keys(obj[key]).length) {
       transform(obj[key], iterator, recurse);
     }
