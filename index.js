@@ -103,7 +103,7 @@ function unescape(input, recurse) {
  * @return {undefined}  replaces keys in-place
  */
 function transform(obj, iterator, recurse) {
-  if (ojb == null || typeof obj !== 'object') { throw new TypeError('obj must be an object'); }
+  if (obj == null || typeof obj !== 'object') { throw new TypeError('obj must be an object'); }
   if (typeof iterator !== 'function') { throw new TypeError('iterator must be a function'); }
 
   recurse = recurse || false;
