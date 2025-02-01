@@ -4,9 +4,6 @@ module.exports = {
         "es6": true
     },
     "extends": "eslint:recommended",
-    "plugins": [
-      'json'
-    ],
     "rules": {
         "indent": [ "error", 2 ],
         "strict": [ "error", "safe" ],
